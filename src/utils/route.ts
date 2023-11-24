@@ -7,6 +7,9 @@ function History() {
     get: () => {
       return history
     },
+    pop: () => {
+      history.pop()
+    },
     push: (path: string) => {
       history.push(path)
     },
@@ -26,12 +29,12 @@ export const history = History()
 // 返回
 export function back() {
   router.go(-1)
+  history.pop()
 }
 
 // 路由跳转
 export function go(path: string) {
   router.push(path)
-
   history.push(path)
 }
 
@@ -53,5 +56,5 @@ export function goAndCloseAll(path: string) {
     router.replace(path)
     // 清空历史,因为是关闭所有所以可以认为是首次打开状态
     history.reset()
-  }, 5);
+  }, 10);
 }

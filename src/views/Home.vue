@@ -1,21 +1,19 @@
 <template>
 	<van-nav-bar
-		:left-arrow="!routerStore.TabbarShow()"
 		:fixed="true"
 		:placeholder="true"
 		v-if="routerStore.NavbarShow()"
 		:title="routerStore.PageTitle()"
-		@click-left="back()"
 	>
-  <template #left>
-    <van-icon
-      name="wap-home"
-      style="font-size: 20px;"
-      v-if="!routerStore.TabbarShow() && !routerStore.NavArrowShow()"
-      @click="replace('/')"
-    />
-  </template>
-  </van-nav-bar>
+		<template #left>
+			<van-icon
+				:name="routerStore.NavHomeShow() ? 'wap-home' : 'arrow-left'"
+				style="font-size: 20px"
+				v-if="!routerStore.TabbarShow()"
+				@click="routerStore.NavHomeShow() ? replace('/') : back()"
+			/>
+		</template>
+	</van-nav-bar>
 	<div
 		class="app-container"
 		:style="{
@@ -51,7 +49,7 @@
 
 <script lang="ts" setup>
 import useRouterStore from '@/store/modules/router'
-import { back , replace } from '@/utils/'
+import { back, replace } from '@/utils/'
 
 const routerStore = useRouterStore()
 </script>

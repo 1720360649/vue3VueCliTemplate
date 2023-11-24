@@ -55,9 +55,9 @@ const useRouterStore = defineStore('router', () => {
     return page?true:false
   }
 
-  // 是否显示navArrow
-  const NavArrowShow = () => {
-    return state.history.length > 0? true : false
+  // 是否显示navHome
+  const NavHomeShow = () => {
+    return state.history.length > 0? false : true
   }
 
   return {
@@ -67,7 +67,7 @@ const useRouterStore = defineStore('router', () => {
     PageTitle,
     NavbarShow,
     TabbarShow,
-    NavArrowShow,
+    NavHomeShow,
   }
 }, {
   // 持久化全部
