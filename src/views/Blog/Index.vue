@@ -5,6 +5,6 @@
 </template>
 
 <script lang="ts" setup>
-import { go } from '@/utils/route';
+import { go } from '@/utils';
 
 </script>

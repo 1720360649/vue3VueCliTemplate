@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { reactive, toRefs } from 'vue'
-import { Page, TabbarItem } from '@/utils/createRoutes'
+import { Page, Tabbar } from '@/utils'
 
 const useRouterStore = defineStore('router', () => {
   let history: string[] = []
   let pages: Page[] = []
-  let tabbar: TabbarItem[] = []
+  let tabbar: Tabbar[] = []
   const state = reactive({
     history: history,
     path: '',
@@ -71,7 +71,7 @@ const useRouterStore = defineStore('router', () => {
   }
 }, {
   // 持久化全部
-  persist: false,
+  persist: true,
   // 选择性持久化
   // persist: piniaPersistConfig('user', ['lastName'])
 })

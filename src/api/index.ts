@@ -9,7 +9,7 @@ const apiConfig: ApiConfig = {
   GetPages: {
     url: "/pages.json",
     withCredentials: false
-  }
+  },
 }
 /**
  * api接口列表：

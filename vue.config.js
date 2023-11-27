@@ -4,6 +4,15 @@ const ComponentsPlugin = require('unplugin-vue-components/webpack')
 
 module.exports = defineConfig({
 	transpileDependencies: true,
+	css: {
+		loaderOptions: {
+			scss: {
+				additionalData: `
+          @import "@/include.scss";
+        `,
+			},
+		},
+	},
 	configureWebpack: {
 		plugins: [
 			ComponentsPlugin({

@@ -12,33 +12,43 @@
 import { watch } from 'vue'
 import useThemeStore from '@/store/modules/theme'
 import useRouterStore from '@/store/modules/router'
-import { getRoute } from '@/utils/createRoutes'
 import router from '@/router'
-import { history } from './utils'
+import { GetRouter, createRoutes } from './utils'
 
 const themeStore = useThemeStore()
-
-/**
- * 路由初始化 路由状态监听
- */
 const routerStore = useRouterStore()
 
-let route = getRoute()
-if (route) {
-	routerStore.pages = route.pages
-	routerStore.tabbar = route.tabbar
-}
-
+// 路由状态监听
 watch(
 	() => router.currentRoute.value.path,
 	(toPath) => {
+    console.log('toPath', toPath)
 		routerStore.path = toPath
+		// 用户刷新后，从持久化信息中获取历史信息并重新构建路由
+		reGetInfo(toPath)
+		// 更新路由历史信息
 		setTimeout(() => {
-			routerStore.history = history.get()
+			routerStore.history = GetRouter().history.get()
 		}, 10)
 	},
 	{ immediate: true, deep: true }
 )
+
+// 从持久化信息中获取历史信息并重新构建路由
+function reGetInfo(toPath: string) {
+	if (toPath !== '/') {
+		if (!GetRouter().pages.get().length) {
+			GetRouter().pages.set(routerStore.pages)
+			GetRouter().tabbar.set(routerStore.tabbar)
+			GetRouter().history.set(routerStore.history)
+			createRoutes().then((re) => {
+				if (re) {
+					router.replace(routerStore.path)
+				}
+			})
+		}
+	}
+}
 </script>
 <style lang="scss">
 @import './theme.scss';

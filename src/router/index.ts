@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { createRoutes } from '@/utils/createRoutes'
 import Index from '@/views/Index.vue'
+import Tabbar from '@/views/Tabbar.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,7 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Index',
     component: Index
   },
-  ...await createRoutes()
+  {
+    path: '/Tabbar',
+    name: 'Tabbar',
+    component: Tabbar
+  }
 ]
 
 const router = createRouter({
